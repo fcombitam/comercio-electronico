@@ -33,8 +33,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . /var/www
 
-COPY .env.example .env
-
 RUN chown -R www-data:www-data /var/www
 
 USER www-data
