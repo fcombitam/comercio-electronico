@@ -46,9 +46,9 @@ A continuación se describe el proceso paso a paso para ejecutar un proyecto Lar
 
 4. **Instalar Dependencias de PHP con Composer**
 
-   Una vez que el contenedor esté levantado, instala las dependencias de Laravel ejecutando el siguiente comando dentro del contenedor:
+   Una vez que el contenedor esté levantado, instala las dependencias de Laravel ejecutando el siguiente comando dentro del contenedor, si te llega a salir un error, ejecutalo nuevamente, a veces podemos tener inconvenientes por timeout:
       ```bash
-      docker-compose exec app composer install --timeout=600
+      docker-compose exec app composer install
 
 5. **Generar la Clave de la Aplicación**
 
