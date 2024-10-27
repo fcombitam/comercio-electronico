@@ -10,8 +10,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('generate-token', [ApiController::class, 'getToken']);
 
-Route::middleware(['auth:sanctum'])->group(function() {
-    Route::middleware('ability:admin-logged')->prefix('product')->group(function() {
-        Route::get('info', [ApiController::class, 'info']);
-    });
+Route::middleware(['auth:sanctum', 'ability:admin-logged'])->group(function () {
+    Route::get('products', [ApiController::class, 'getProducts']);
+    Route::post('/update-product', [ApiController::class, 'updateProduct']);
 });
