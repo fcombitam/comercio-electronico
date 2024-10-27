@@ -257,10 +257,10 @@ Esta api nos servira para actualizar cualquier producto de nuestro catalogo.
 
    ```json
    {
-      "product_id": 5, # PRODUCTO A ACTUALIZAR
-      "name": "Nuevo nombre del producto", #NUEVO NOMBRE
-      "price": 95000, #NUEVO PRECIO
-      "stock": 10 #NUEVA CANTIDAD
+      "product_id": 5, // PRODUCTO A ACTUALIZAR
+      "name": "Nuevo nombre del producto", // NUEVO NOMBRE
+      "price": 95000, // NUEVO PRECIO
+      "stock": 10 // NUEVA CANTIDAD
    }
 
 - **Respuesta Exitosa:**
