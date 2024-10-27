@@ -37,10 +37,5 @@ RUN chown -R www-data:www-data /var/www
 
 USER www-data
 
-RUN composer install
-
-RUN npm install \
-    && npm run build
-
 EXPOSE 9000
 CMD ["php-fpm"]

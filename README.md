@@ -9,22 +9,21 @@ A continuación se describe el proceso paso a paso para ejecutar un proyecto Lar
 ### Requisitos Previos
 1. **Docker**: Asegúrate de tener Docker instalado y en funcionamiento. Puedes descargarlo desde [Docker](https://www.docker.com/products/docker-desktop).
 2. **Git**: Necesitarás Git para clonar el repositorio. Descárgalo desde [Git](https://git-scm.com/downloads).
-3. **Composer (Opcional)**: Aunque Docker instalará las dependencias, tener Composer configurado localmente puede ser útil en algunos casos. Descárgalo desde [Composer](https://getcomposer.org/download/).
 
 ### Paso a Paso para Ejecutar el Proyecto
 
 1. **Clonar el Repositorio**
    
    Clona el repositorio en tu máquina local con el siguiente comando:
-   ```bash
-   git clone https://github.com/tu-usuario/tu-repositorio.git
-   cd tu-repositorio
+      ```bash
+      git clone https://github.com/fcombitam/comercio-electronico.git
+      cd comercio-electronico
 
 2. **Copiar el Archivo `.env`**
 
-   Laravel usa un archivo `.env` para almacenar configuraciones de entorno. Copia el archivo de ejemplo:
-   ```bash
-   cp .env.example .env
+   Laravel usa un archivo `.env` para almacenar configuraciones de entorno. O puedes crear crear el archivo manualmente compiando todo el contenido de .env.example a .env en la raiz.
+      ```bash
+      cp .env.example .env
 
 3. **Construir los Contenedores con Docker Compose**
 
@@ -32,14 +31,31 @@ A continuación se describe el proceso paso a paso para ejecutar un proyecto Lar
    ```bash
    docker-compose up -d --build
 
-4. **Generar la Clave de la Aplicación**
+4. **Instalar Dependencias de PHP con Composer**
+
+   Una vez que el contenedor esté levantado, instala las dependencias de Laravel ejecutando el siguiente comando dentro del contenedor:
+      ```bash
+      docker-compose exec app composer install
+
+5. **Generar la Clave de la Aplicación**
 
    Ejecuta el siguiente comando para generar una clave de aplicación:
-   ```bash
-   docker-compose exec app php artisan key:generate
+      ```bash
+      docker-compose exec app php artisan key:generate
 
-5. **Ejecutar las Migraciones y Semillas de Base de Datos**
+6. **Ejecutar las Migraciones y Semillas de Base de Datos**
 
    Con las configuraciones de base de datos listas, ejecuta las migraciones y las semillas para crear y poblar las tablas:
-   ```bash
-   docker-compose exec app php artisan migrate --seed
+      ```bash
+      docker-compose exec app php artisan migrate --seed
+
+7. **Compilar los Recursos Frontend**
+
+   Ejecuta paquetes de frontend:
+      ```bash
+      docker-compose exec app npm install
+      docker-compose exec app npm run build
+
+8. **Acceder a la Aplicación**
+
+   Con todo listo, puedes acceder a tu aplicación en `http://localhost:8000/`.
