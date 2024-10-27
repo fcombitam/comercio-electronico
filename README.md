@@ -163,125 +163,125 @@ Importala en tu postman, dispondras de 3 peticiones.
 
 La unica ruta que funciona sin autenticar es la de autenticacion donde obtendremos un bearer token que nos servira para realizar las otras peticiones.
 
-1. **Autenticacion**
+#### Autenticacion
 
-   Esta api nos servira para obtener el bearer token y autenticarnos con sanctum.
+Esta api nos servira para obtener el bearer token y autenticarnos con sanctum.
 
-   Peticion:
+- **Peticion**
 
-      ```json
-      {
-         "METHOD": "POST",
-         "URL": "http://localhost:8000/api/generate-token",
-         "AUTHORIZATION": "NONE"
+   ```json
+   {
+      "METHOD": "POST",
+      "URL": "http://localhost:8000/api/generate-token",
+      "AUTHORIZATION": "NONE"
+   }
+
+- **Body**
+
+   ```json
+   {
+      "email": "admin@example.com",
+      "password": "password"
+   }
+
+- **Respuesta Exitosa**
+
+   ```json
+   {
+      "code": "200",
+      "message": "Informacion Correcta, No olvides usar este bearer token para autenticarte en las demas rutas Api,DESARROLLADO CON LARAVEL SANCTUM",
+      "accessToken": "BEARERTOKEN",
+      "token_type": "Bearer"
+   }
+
+**DEBES GUARDAR EL BEARER TOKEN (accessToken) PARA PODER AUTENTICARTE EN LAS DEMAS PETICIONES**
+
+#### Listar Productos
+
+Esta api nos servira para listar todos los productos disponibles en nuestro catalogo, api con paginacion.
+
+- **Peticion (No olvides el bearer token de la peticion de la primera peticion):**
+
+   ```json
+   {
+      "METHOD": "GET",
+      "URL": "http://localhost:8000/api/products",
+      "AUTHORIZATION": "BEARER TOKEN"
+   }
+
+- **PARAMS:**
+
+   ```json
+   {
+      "page": 1,
+      "per_page": 10
+   }
+
+- **Respuesta Exitosa:**
+
+   ```json
+   {
+      "code": 200,
+      "message": "Productos obtenidos correctamente",
+      "data": {
+         "current_page": 1,
+         "data": [...],
+         "first_page_url": "http://localhost:8000/api/products?page=1",
+         "from": 1,
+         "last_page": 60,
+         "last_page_url": "http://localhost:8000/api/products?page=60",
+         "links": [...],
+         "next_page_url": "http://localhost:8000/api/products?page=2",
+         "path": "http://localhost:8000/api/products",
+         "per_page": 5,
+         "prev_page_url": null,
+         "to": 5,
+         "total": 300
       }
+   }
 
-   Body:
+#### ACTUALZIAR PRODUCTO
 
-      ```json
-      {
-         "email": "admin@example.com",
-         "password": "password"
+Esta api nos servira para actualizar cualquier producto de nuestro catalogo.
+
+- **Peticion (No olvides el bearer token de la peticion de la primera peticion):**
+
+   ```json
+   {
+      "METHOD": "POST",
+      "URL": "http://localhost:8000/api/update-products",
+      "AUTHORIZATION": "BEARER TOKEN"
+   }
+
+- **Body:**
+
+   ```json
+   {
+      "product_id": 5, # PRODUCTO A ACTUALIZAR
+      "name": "Nuevo nombre del producto", #NUEVO NOMBRE
+      "price": 95000, #NUEVO PRECIO
+      "stock": 10 #NUEVA CANTIDAD
+   }
+
+- **Respuesta Exitosa:**
+
+   ```json
+   {
+      "code": 200,
+      "message": "Producto actualizado correctamente",
+      "data": {
+         "id": 5,
+         "category_id": 5,
+         "name": "Nuevo nombre del producto",
+         "description": "Iste facere neque voluptatum ipsa. In eveniet quod possimus dolorem. In quia minima rerum. Et nostrum ut hic. Ducimus voluptas aperiam aperiam voluptatum nostrum.",
+         "price": "95000",
+         "stock": "10",
+         "image": "https://placehold.co/800@3x.png?text=libero",
+         "status": "1",
+         "created_at": "2024-10-27T17:29:08.000000Z",
+         "updated_at": "2024-10-27T18:53:26.000000Z"
       }
-
-   Respuesta Exitosa:
-
-      ```json
-      {
-         "code": "200",
-         "message": "Informacion Correcta, No olvides usar este bearer token para autenticarte en las demas rutas Api,DESARROLLADO CON LARAVEL SANCTUM",
-         "accessToken": "BEARERTOKEN",
-         "token_type": "Bearer"
-      }
-
-   DEBES GUARDAR EL BEARER TOKEN (accessToken) PARA PODER AUTENTICARTE EN LAS DEMAS PETICIONES
-
-2. **Listar Productos**
-
-   Esta api nos servira para listar todos los productos disponibles en nuestro catalogo, api con paginacion.
-
-   Peticion (No olvides el bearer token de la peticion de la primera peticion):
-
-      ```json
-      {
-         "METHOD": "GET",
-         "URL": "http://localhost:8000/api/products",
-         "AUTHORIZATION": "BEARER TOKEN"
-      }
-
-   PARAMS:
-
-      ```json
-      {
-         "page": 1,
-         "per_page": 10
-      }
-
-   Respuesta Exitosa:
-
-      ```json
-      {
-         "code": 200,
-         "message": "Productos obtenidos correctamente",
-         "data": {
-            "current_page": 1,
-            "data": [...],
-            "first_page_url": "http://localhost:8000/api/products?page=1",
-            "from": 1,
-            "last_page": 60,
-            "last_page_url": "http://localhost:8000/api/products?page=60",
-            "links": [...],
-            "next_page_url": "http://localhost:8000/api/products?page=2",
-            "path": "http://localhost:8000/api/products",
-            "per_page": 5,
-            "prev_page_url": null,
-            "to": 5,
-            "total": 300
-         }
-      }
-
-3. **ACTUALZIAR PRODUCTO**
-
-   Esta api nos servira para actualizar cualquier producto de nuestro catalogo.
-
-   Peticion (No olvides el bearer token de la peticion de la primera peticion):
-
-      ```json
-      {
-         "METHOD": "POST",
-         "URL": "http://localhost:8000/api/update-products",
-         "AUTHORIZATION": "BEARER TOKEN"
-      }
-
-   Body:
-
-      ```json
-      {
-         "product_id": 5, # PRODUCTO A ACTUALIZAR
-         "name": "Nuevo nombre del producto", #NUEVO NOMBRE
-         "price": 95000, #NUEVO PRECIO
-         "stock": 10, #NUEVA CANTIDAD
-      }
-
-   Respuesta Exitosa:
-
-      ```json
-      {
-         "code": 200,
-         "message": "Producto actualizado correctamente",
-         "data": {
-            "id": 5,
-            "category_id": 5,
-            "name": "Nuevo nombre del producto",
-            "description": "Iste facere neque voluptatum ipsa. In eveniet quod possimus dolorem. In quia minima rerum. Et nostrum ut hic. Ducimus voluptas aperiam aperiam voluptatum nostrum.",
-            "price": "95000",
-            "stock": "10",
-            "image": "https://placehold.co/800@3x.png?text=libero",
-            "status": "1",
-            "created_at": "2024-10-27T17:29:08.000000Z",
-            "updated_at": "2024-10-27T18:53:26.000000Z"
-         }
-      }
+   }
 
 ## Observaciones finales
 
