@@ -125,8 +125,6 @@ class HomeController extends Controller
         $cart->status = Order::STATUS_CANCELLED;
         $cart->save();
 
-        $cart->items()->delete();
-
         return redirect()->route('orders.index');
     }
 

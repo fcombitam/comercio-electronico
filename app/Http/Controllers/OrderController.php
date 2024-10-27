@@ -24,6 +24,10 @@ class OrderController extends Controller
 
         $query = $user->type == User::TYPE_ADMIN ? Order::query() : $user->orders();
 
+        if ($user->type == User::TYPE_CLIENT) {
+            $query->whereIn('status', [Order::STATUS_COMPLETED, Order::STATUS_CANCELLED]);
+        }
+
         if ($search) {
             $query->whereHas('user', function ($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%')
