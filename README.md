@@ -56,20 +56,26 @@ A continuación se describe el proceso paso a paso para ejecutar un proyecto Lar
       ```bash
       docker-compose exec app php artisan key:generate
 
-6. **Ejecutar las Migraciones y Semillas de Base de Datos**
+6. **Enlace simbolico /public**
+
+   Este comando permite acceder a los archivos almacenados en `storage` desde la carpeta pública:
+      ```bash
+      docker-compose exec app php artisan storage:link
+
+7. **Ejecutar las Migraciones y Semillas de Base de Datos**
 
    Con las configuraciones de base de datos listas, ejecuta las migraciones y las semillas para crear y poblar las tablas:
       ```bash
       docker-compose exec app php artisan migrate:fresh --seed
 
-7. **Compilar los Recursos Frontend**
+8. **Compilar los Recursos Frontend**
 
    Ejecuta paquetes de frontend:
       ```bash
       docker-compose exec app npm install
       docker-compose exec app npm run build
 
-8. **Acceder a la Aplicación**
+9. **Acceder a la Aplicación**
 
    Con todo listo, puedes acceder a tu aplicación en [http://localhost:8000/](http://localhost:8000/).
 
